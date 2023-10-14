@@ -53,7 +53,8 @@ def index(request):
 
 
 def post_detail(request, id: int):
-    id_post = {post['id']: {key: value for key, value in post.items()} for post in posts}
+    id_post = {post['id']: {key: value for key, value
+                            in post.items()} for post in posts}
     if id not in id_post:
         raise Http404
     template = 'blog/detail.html'
