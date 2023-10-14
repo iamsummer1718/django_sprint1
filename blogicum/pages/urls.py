@@ -2,9 +2,9 @@ from django.urls import path
 
 from . import views
 
-app_name: str = 'pages'
+app_name = 'pages'
 
-urlpatterns: list = [
+urlpatterns = [
     path('about/', views.about, name='about'),
     path('rules/', views.rules, name='rules'),
 ]

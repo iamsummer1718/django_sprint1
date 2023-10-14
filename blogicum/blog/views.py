@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
+from django.http import Http404
 
-posts: list[dict] = [
+
+posts = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -46,21 +48,21 @@ posts: list[dict] = [
 
 
 def index(request):
-    template: str = 'blog/index.html'
-    context: dict = {'index': posts}
+    template = 'blog/index.html'
+    context = {'index': posts}
     return render(request, template, context)
 
 
 def post_detail(request, id: int):
-    if id <= len(posts):
-        template: str = 'blog/detail.html'
-        context: dict = {'post': posts[id]}
-        return render(request, template, context)
-    template: str = 'blog/error_page.html'
-    return render(request, template)
+    for post in posts:
+        if id in post.values():
+            template = 'blog/detail.html'
+            context = {'post': post}
+            return render(request, template, context)
+    raise Http404
 
 
 def category_posts(request, category_slug: str):
-    template: str = 'blog/category.html'
-    context: dict = {'category': category_slug}
+    template = 'blog/category.html'
+    context = {'category': category_slug}
     return render(request, template, context)
